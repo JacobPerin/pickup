@@ -1,4 +1,4 @@
-package p06.pickup;
+package web;
 
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;

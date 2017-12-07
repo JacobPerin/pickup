@@ -20,9 +20,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-web"
     compile 'org.codehaus.groovy:groovy-all:2.4.12'
-    testCompile "junit:junit"
+    compile "org.codehaus.groovy:groovy-templates:2.4.12"
+    compile "org.springframework.boot:spring-boot-starter-web"
+
 }
 
 bootRun {
