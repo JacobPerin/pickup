@@ -1,31 +1,22 @@
-package pickup;
+package web;
 
-import User
-import com.mongodb.BasicDBObject;
-import javax.annotation.PostConstruct;
+import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.*;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
-import grails.mongodb.geo.*;
 
-@RestController
-class ModelController {
-	
-	@RequestMapping("/")
-	List index() {
-		User.list().collect { [name: it.name] }
-	}
+/*
+References :: 
+https://docs.spring.io/spring/docs/4.3.12.RELEASE/spring-framework-reference/htmlsingle/#mvc
+	-- Chapter 22 :: @Controller, @RequestMapping, @ResponseBody
+https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-developing-web-applications
+	-- Chapter 11 :: Creating Spring application
+*/
 
-	@PostConstruct
-	void populateUsers() {
-		User.withTransaction{
-			User.collection.remove(new BasicDBObject())
-			User.saveAll(
-				[
-				new User(firstName:"Collin",
-							lastName:"McElvain")
-				]
-				)
-		}
-	}
+@Controller
+class AppController {
+
+    @RequestMapping("/")
+    @ResponseBody
+    String home() {
+        return "Hello World!";
+    }
 }

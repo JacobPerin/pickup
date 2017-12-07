@@ -25,12 +25,19 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+<<<<<<< HEAD
     compile "org.springframework.boot:spring-boot-starter-web"
     compile 'org.mongodb:mongo-java-driver:3.0.4'
     compile 'org.codehaus.groovy:groovy-all:2.4.12'
     compile 'org.grails:gorm-mongodb-spring-boot:1.1.0.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
     testCompile "junit:junit"
+=======
+    compile 'org.codehaus.groovy:groovy-all:2.4.12'
+    compile "org.codehaus.groovy:groovy-templates:2.4.12"
+    compile "org.springframework.boot:spring-boot-starter-web"
+
+>>>>>>> 515bf3708638c589b527da495649f746160eb2cc
 }
 
 
