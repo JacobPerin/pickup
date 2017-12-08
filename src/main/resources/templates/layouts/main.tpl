@@ -1,5 +1,6 @@
 yieldUnescaped '<!DOCTYPE html>'
 html {
+
   head {
 
     comment 'http://groovy-lang.org/templating.html :: used to render .html'
@@ -16,14 +17,17 @@ html {
     script('', type:'text/javascript' , src : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
 
   }
+
   body {
     div(class: 'container-fluid'){
       comment 'split page into two halves :: (1) active events list (2) google map + detial view'
       div(class: 'row height-full') {
         
         comment 'left side of page'  
-        div(class: 'col-3 bg-primary height-full scroll-y') {
-          comment 'TODO :: Add a growing list of events'
+        div(class: 'col-3 height-full scroll-y', style:'background-color: #CCD6DD;') {
+          div(class: 'container-fluid'){
+            ul(id : 'active-events', class : 'list-group')
+          }
         }
         
         comment 'right side of page'
@@ -38,7 +42,7 @@ html {
             div('', class : 'w-100')
 
             comment 'detial view f/ events'
-            div('' , id : 'detail', class: 'col bg-info height-thirty-five scroll-y')
+            div('' , id : 'detail', class: 'col height-thirty-five scroll-y', style:'background-color: #E1E8ED;')
           }
         }
       }
