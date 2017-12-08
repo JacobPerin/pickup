@@ -24,7 +24,7 @@ class AppController {
 
     @RequestMapping("/")
     def home() {
-        new ModelAndView("views/_login")
+        new ModelAndView("views/_registration")
     }
 
 }

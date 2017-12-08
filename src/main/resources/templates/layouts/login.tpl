@@ -12,6 +12,9 @@ html {
   body {
 
     div(class : 'mx-auto', style : 'width : 400px;'){
+
+      h1('Registration Page')
+
     
       comment 'modify action'
       form( action : '/', ,method : 'post') {

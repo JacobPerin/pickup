@@ -1,4 +1,4 @@
-layout 'layouts/register.tpl',
+layout 'layouts/registration.tpl',
         pageTitle: 'Registration',
         mainBody: contents {
                
