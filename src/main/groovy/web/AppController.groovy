@@ -8,6 +8,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+
+import org.springframework.web.servlet.ModelAndView
+
+
 /*
 References :: 
 https://docs.spring.io/spring/docs/4.3.12.RELEASE/spring-framework-reference/htmlsingle/#mvc
@@ -20,8 +24,12 @@ https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-featu
 class AppController {
 
     @RequestMapping("/")
-    List index() {
-    	User.list().collect { [firstName: it.firstName]}
+// <<<<<<< HEAD
+//     List index() {
+//     	User.list().collect { [firstName: it.firstName]}
+// =======
+    def home() {
+        new ModelAndView("views/home")
     }
 
 
