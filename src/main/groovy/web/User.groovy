@@ -2,6 +2,7 @@ package web
 
 import grails.persistence.*
 
+
 class User {
 	String firstName;
 	String lastName;
@@ -17,5 +18,5 @@ class User {
 		password blank:false
 	}
 
-	
+
 }
