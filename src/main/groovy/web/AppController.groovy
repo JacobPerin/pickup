@@ -1,6 +1,11 @@
+@Grab("org.grails:gorm-mongodb-spring-boot:1.0.0.RC1")
 package web;
 
-import org.springframework.stereotype.*;
+import grails.persistence.*;
+import org.bson.types.ObjectId;
+import com.mongodb.BasicDBObject;
+import javax.annotation.PostConstruct;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 /*
@@ -11,12 +16,23 @@ https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-featu
 	-- Chapter 11 :: Creating Spring application
 */
 
-@Controller
+@RestController
 class AppController {
 
     @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
+    List index() {
+    	User.list().collect { [firstName: it.firstName]}
     }
+
+
+    @PostConstruct
+    void populateUsers() {
+    	User.withTransaction{
+    		User.collection.remove(new BasicDBObject())
+    		User.saveAll([
+    			new User(firstName:"Collin", lastName:"McElvain")
+    			])
+    	}
+    }
+
 }

@@ -1,7 +1,7 @@
-package Model;
+package web;
 
-import grails.persistence.*;
 import org.bson.types.ObjectId;
+import grails.persistence.*;
 
 @Entity
 class User {
@@ -10,9 +10,7 @@ class User {
 	String lastName;
 
 	static constraints = {
-		firstName blank:false;
-		lastName blank:false;
-
+		firstName blank:false
+		lastName blank:false
 	}
-
 }

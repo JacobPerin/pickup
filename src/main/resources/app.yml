@@ -3,4 +3,8 @@ spring:
         host: "localhost"
         databaseName: "pickup"
         options:
-            connectionsPerHost: 10
+            connectionsPerHost: 20
+
+grails:
+    mongodb:
+        engine: mapping

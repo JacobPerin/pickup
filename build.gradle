@@ -10,27 +10,33 @@ buildscript {
 }
 
 apply plugin: 'groovy'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 repositories {
     mavenCentral()
 }
 
-jar {
-    baseName = 'gs-spring-boot-gorm-mongodb'
-    version = '0.1.0'
-}
+// jar {
+//     baseName = 'gs-spring-boot-gorm-mongodb'
+//     version = '0.1.0'
+// }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+// configurations.all {
+//     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//         if( details.requested.group == 'org.grails' &&
+//             details.requested.name.startsWith('grails-datastore')) {
+//             details.useVersion("6.1.2.RELEASE")
+//         }
+//     }
+// }
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
-    compile 'org.mongodb:mongo-java-driver:3.0.4'
     compile 'org.codehaus.groovy:groovy-all:2.4.12'
     compile "org.codehaus.groovy:groovy-templates:2.4.12"
-    compile 'org.grails:gorm-mongodb-spring-boot:1.1.0.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    compile "org.grails:gorm-mongodb-spring-boot:6.1.2.RELEASE"
     testCompile "junit:junit"
     
 }
