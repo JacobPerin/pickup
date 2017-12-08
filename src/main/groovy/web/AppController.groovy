@@ -1,7 +1,11 @@
-package web;
+package web
 
-import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
+import grails.persistence.*
+import org.bson.types.ObjectId
+import com.mongodb.BasicDBObject
+import javax.annotation.PostConstruct
+import org.springframework.http.*
+import org.springframework.web.bind.annotation.*
 
 
 import org.springframework.web.servlet.ModelAndView;
@@ -15,11 +19,12 @@ https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-featu
 	-- Chapter 11 :: Creating Spring application
 */
 
-@Controller
+@RestController
 class AppController {
 
     @RequestMapping("/")
     def home() {
         new ModelAndView("views/home")
     }
+
 }

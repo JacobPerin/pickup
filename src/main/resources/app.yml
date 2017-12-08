@@ -1,0 +1,10 @@
+spring:
+    mongodb:
+        host: "localhost"
+        databaseName: "pickup"
+        options:
+            connectionsPerHost: 20
+
+grails:
+    mongodb:
+        engine: mapping

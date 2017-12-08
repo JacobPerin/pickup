@@ -16,15 +16,23 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    baseName = 'gs-spring-boot-gorm-mongodb'
+    version = '0.1.0'
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web"
     compile 'org.codehaus.groovy:groovy-all:2.4.12'
     compile "org.codehaus.groovy:groovy-templates:2.4.12"
-    compile "org.springframework.boot:spring-boot-starter-web"
-
+    compile "org.grails:gorm-mongodb-spring-boot:6.1.2.RELEASE"
+    testCompile "junit:junit"
+    
 }
+
 
 bootRun {
     addResources = true
