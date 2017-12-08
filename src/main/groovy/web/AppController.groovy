@@ -3,6 +3,10 @@ package web;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
+
+import org.springframework.web.servlet.ModelAndView
+
+
 /*
 References :: 
 https://docs.spring.io/spring/docs/4.3.12.RELEASE/spring-framework-reference/htmlsingle/#mvc
@@ -15,8 +19,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-featu
 class AppController {
 
     @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
+    def home() {
+        new ModelAndView("views/home")
     }
 }
