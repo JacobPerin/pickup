@@ -1,11 +1,11 @@
 package web
 
-import grails.persistence.* 
+import grails.persistence.*
 import org.bson.types.ObjectId
 
 @Entity
 class User {
-	ObjectId id
+	ObjectId id;
 	String firstName;
 	String lastName;
 	String email;

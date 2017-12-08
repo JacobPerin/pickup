@@ -28,7 +28,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile 'org.codehaus.groovy:groovy-all:2.4.12'
     compile "org.codehaus.groovy:groovy-templates:2.4.12"
-    compile "org.grails:gorm-mongodb-spring-boot:6.1.2.RELEASE"
+    compile "org.grails:gorm-mongodb-spring-boot:5.0.13.RELEASE"
     testCompile "junit:junit"
     
 }

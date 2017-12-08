@@ -19,7 +19,7 @@ class UserController {
 
 	@RequestMapping("{id}")
 	def view(@PathVariable("id") Long id) {
-		new ModelAndView("views/user/edit", "user", User.get(id))
+		new ModelAndView("views/_login", "user", User.get(id))
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -35,8 +35,8 @@ class UserController {
 		//Create new user
 		else{
 			new User(lastName: user.lastName, email: user.email, username: user.username, 
-				firstName: user.firstName, password: user.password).save()
+				firstName: user.firstName, password: user.password).save(flush:true)
 		}
-		new ModelAndView("redirect:/")
+		new ModelAndView("redirect:views/_main")
 	}
 }

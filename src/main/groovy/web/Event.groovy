@@ -2,8 +2,11 @@ package web
 
 import grails.persistence.*
 import grails.mongodb.geo.*
+import org.bson.types.ObjectId
 
+@Entity
 class Event {
+	ObjectId id
 	String username
 	Point location
 	String description

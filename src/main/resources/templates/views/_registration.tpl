@@ -2,7 +2,7 @@ layout 'layouts/registration.tpl',
         pageTitle: 'Registration',
         mainBody: contents {
                      comment 'modify action'
-				      form( action : '/user', method : 'post') {
+				      form( id:'registrationForm', action : '/user', method : 'post') {
 				        div(class : 'form-group') {
 				          label(for : 'firstName', 'First Name')
 				          input(type : 'text', class : 'form-control', name : 'firstName', id : 'firstName', placeholder : 'Enter First Name')
