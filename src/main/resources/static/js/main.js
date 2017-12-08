@@ -84,11 +84,11 @@ function createForm(marker){
 
         let latLng = marker.getPosition();
 
-        //values.push({lat : latLng.lat()});
-        //values.push({lng : latLng.lng()});
+        values['lat'] = latLng.lat();
+        values['lng'] = latLng.lng();
 
         //TODO :: BRING TO FRONTEND
-        //$.post('/event', {lat : });
+        //$.post('/event', values);
 
         // Form has accomplished purpose --> remove
         pendingClear();
