@@ -1,5 +1,5 @@
 layout 'layouts/register.tpl',
-        pageTitle: 'register',
+        pageTitle: 'Registration',
         mainBody: contents {
                
         }
