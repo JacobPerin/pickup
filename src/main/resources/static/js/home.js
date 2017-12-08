@@ -13,6 +13,7 @@ function initMap() {
 		}
 	});
 
+	// Event listener every time the user wants to create an event 
   	map.addListener('click', function(e) {
         addEvent(e.latLng, map);
   	});
@@ -27,4 +28,20 @@ function addEvent(latLng, map){
         position: e.latLng
     });
 
+	createForm(marker);
+
+
+	// Create a form in the window for user to type in event detials
+
+}
+
+
+function createForm(marker){
+    let form = $('<form />');
+
+    form.append($('<div />'));
+
+    //....
+
+    //form.on('submit', function(){}) ??? 
 }
