@@ -15,11 +15,6 @@ html {
     comment 'jquery for .js'
     script('', type:'text/javascript' , src : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
 
-    comment 'Import the .js file to handle events + load google maps'
-    script( '', type:'text/javascript', src:'/js/home.js' )
-
-    script ('async', 'defer' , src : 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD7z1r4T2Z6mNda14Z2at9sX9Zj6CKbZa0&callback=initMap')
-
   }
   body {
 
@@ -37,7 +32,7 @@ html {
         div(class : 'row') {
 
           comment 'google map'
-          div(id : 'map', class: 'col bg-secondary height-sixty-five'){}
+          div(id : 'map', class: 'col height-sixty-five'){}
 
           comment 'make column break to next line'
           div(class : 'w-100'){}
@@ -47,6 +42,12 @@ html {
         }
       }
     }
+
+
+    comment 'Import the .js file to handle events + load google maps'
+    script( '', type:'text/javascript', src:'/js/home.js' )
+
+    script ('async', 'defer' , src : 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD7z1r4T2Z6mNda14Z2at9sX9Zj6CKbZa0&callback=initMap')
     mainBody()
   }
 }
