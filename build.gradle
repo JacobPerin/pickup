@@ -16,22 +16,14 @@ repositories {
     mavenCentral()
 }
 
-// jar {
-//     baseName = 'gs-spring-boot-gorm-mongodb'
-//     version = '0.1.0'
-// }
+jar {
+    baseName = 'gs-spring-boot-gorm-mongodb'
+    version = '0.1.0'
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-// configurations.all {
-//     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-//         if( details.requested.group == 'org.grails' &&
-//             details.requested.name.startsWith('grails-datastore')) {
-//             details.useVersion("6.1.2.RELEASE")
-//         }
-//     }
-// }
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile 'org.codehaus.groovy:groovy-all:2.4.12'
