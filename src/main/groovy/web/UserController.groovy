@@ -37,6 +37,6 @@ class UserController {
 			new User(lastName: user.lastName, email: user.email, username: user.username, 
 				firstName: user.firstName, password: user.password).save(flush:true)
 		}
-		new ModelAndView("redirect:views/_main")
+		new ModelAndView("views/_main")
 	}
 }
