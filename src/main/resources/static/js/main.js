@@ -1,4 +1,5 @@
 let markers = [];
+let userId = document.getElementById("userId").value;
 
 
 function initMap() {
@@ -207,9 +208,9 @@ function formOpterations(marker){
 
     values['lat'] = latLng.lat();
     values['lng'] = latLng.lng();
-
+    values['userId'] = userId; 
     // Store data in the backend model
-    formToBackend(values);
+    var som = formToBackend(values);
 
     /*
     TODO :: 
@@ -217,7 +218,7 @@ function formOpterations(marker){
         --Make call to backend to get id for event
         --Pass to class to initialize event w/ event id
     */
-    let id = retrieveId('', values.event);
+    let id = retrieveId(userId, values.event);
 
     // Retrieve id from backend, and generate a list item w/ event
     appendToList(values.event, id, values.people);
@@ -226,16 +227,21 @@ function formOpterations(marker){
 
 // TODO :: STORE DATA TO THE BACKEND
 function formToBackend(values){
-    $.post('/user/addEvent', values);
+  $.ajax({
+    type:"POST",
+    url:'/user/addEvent',
+    data: values,
+    success: function(data){
+      
+    }
+
+  });
 }
 
 
-// DUMMY VALUE, REPLACE WITH ACTUAL DATA
-let id = 0;
-
 // TODO :: GET ID FOR CLASS SPEC. ON APPEND TO LIST
-function retrieveId(username, event){
-    //$.get('/event', {username : username, event : event});
+function retrieveId(id, event){
+    $.get('/event', {id : id, event : event});
     return ++id;
 }
 

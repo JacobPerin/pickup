@@ -10,6 +10,7 @@ class Event {
 	String username
 	Point location
 	String description
+	Integer attendingUsers
 
 	static constraints = {
 		username blank:false

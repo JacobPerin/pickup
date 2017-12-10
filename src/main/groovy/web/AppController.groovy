@@ -6,6 +6,7 @@ import com.mongodb.BasicDBObject
 import javax.annotation.PostConstruct
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
+import org.springframework.transaction.annotation.Transactional
 
 
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +21,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-featu
 */
 
 @RestController
+@Transactional
 class AppController {
 
     @RequestMapping("/")

@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView
 import org.springframework.http.HttpStatus
 import grails.mongodb.geo.*
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.bind.annotation.RequestBody
 
 @Controller
 @Transactional
@@ -19,16 +20,18 @@ class UserController {
 		return 'views/_registration'
 	}
 
-	@RequestMapping("addEvent")
-	def addEvent(User user) {
+	@RequestMapping(value="addEvent", method=RequestMethod.POST)
+	def addEvent(@RequestBody User user) {
 
-		def locUser = User.findByUsername("StankyStarfish")
+		def locUser = User.get(user.userId)
 		if(locUser){
-			Point point = new Point(70, 80)
-			def event = new Event(username: "StankyStarfish", location: point, description: "IWorkBitch")
+			Point point = new Point(user.lat, user.lng)
+			def event = new Event(username: locUser.username, location: point, description: user.description, attendingUsers: 1, title: user.event)
 			locUser.addToEvents(event)
 			locUser.save(flush:true)
+			return true;
 		}
+		return false;
 	}
 
 	@RequestMapping("login")
@@ -36,7 +39,10 @@ class UserController {
 
 		def locUser = User.findByUsernameAndPassword(user.username, user.password)
 		if(locUser) {
-			new ModelAndView("views/_main", "user", locUser)
+			ModelAndView mod = new ModelAndView("views/_main");
+			mod.addObject("events", locUser.events)
+			mod.addObject("userId", locUser.id)
+			return mod
 		}
 		else{
 			return
@@ -45,7 +51,7 @@ class UserController {
 	}
 
 	@RequestMapping("list")
-	def getEvents(User user) {
+	def list(User user) {
 		println("made it bish")
 		def locUser = User.findByUsername(user.username)
 		new ModelAndView('views/_main', [users: locUser.events])

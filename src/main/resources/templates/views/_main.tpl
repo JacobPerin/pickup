@@ -7,15 +7,16 @@ layout 'layouts/main.tpl',
         
         comment 'left side of page'  
         div(class: 'col-3 height-full scroll-y', style:'background-color: #CCD6DD;') {
+          input(type:'hidden', id:"userId", name:"username", value: userId)
           div(class: 'container-fluid'){
-            ul(id : 'active-events', class : 'list-group'){
-            	users.each { event ->
-            		li {
-            			span(class : 'badge badge-primary badge-pill', text : event.description)
-            		}
+          	    // ul(id : 'active-events', class : 'list-group'){
+               //    events.each { event ->
+               //      li {
+               //        span(class : 'badge badge-primary badge-pill', text : event.description)
+               //      }
 
-            	}
-            }
+               //    }
+               //  }
           }
         }
         

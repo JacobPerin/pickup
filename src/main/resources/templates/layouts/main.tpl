@@ -15,7 +15,6 @@ html {
 
     comment 'jquery for .js'
     script('', type:'text/javascript' , src : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-
   }
 
   body {
@@ -26,6 +25,7 @@ html {
     script( '', type:'text/javascript', src:'/js/main.js' )
 
     script ('async', 'defer' , src : 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD7z1r4T2Z6mNda14Z2at9sX9Zj6CKbZa0&callback=initMap')
+
     
   }
 }
