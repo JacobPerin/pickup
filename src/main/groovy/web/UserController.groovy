@@ -26,7 +26,7 @@ class UserController {
 		def locUser = User.get(user.userId)
 		if(locUser){
 			Point point = new Point(user.lat, user.lng)
-			def event = new Event(username: locUser.username, location: point, description: user.description, attendingUsers: 1, title: user.event)
+			def event = new Event(username: locUser.username, location: point, description: user.description, attendingUsers: 1, title: user.event, maxUsers: user.people)
 			locUser.addToEvents(event)
 			locUser.save(flush:true)
 			return true;
@@ -48,13 +48,6 @@ class UserController {
 			return
 		}
 		
-	}
-
-	@RequestMapping("list")
-	def list(User user) {
-		println("made it bish")
-		def locUser = User.findByUsername(user.username)
-		new ModelAndView('views/_main', [users: locUser.events])
 	}
 
 	@RequestMapping(value='/error', method = RequestMethod.GET)
