@@ -8,20 +8,16 @@ import org.bson.types.ObjectId
 class Event {
 	ObjectId id
 	String username
-	Point location
+	String lat
+	String lng
 	String description
-	Integer attendingUsers
-	Integer maxUsers
+	String attendingUsers
+	String maxUsers
 	String title
 
 	static constraints = {
 		username blank:false
 		description blank:false
-		location nullable:false
-	}
-
-	static mapping = {
-		location geoIndex:'2dsphere'
 	}
 
 	static belongsTo = [user:User]

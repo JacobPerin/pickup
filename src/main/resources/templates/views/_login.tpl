@@ -19,7 +19,7 @@ layout 'layouts/login.tpl',
 		        button('Submit', type : 'submit', class : 'btn btn-primary')
 		        
 		      }
-		      form(id:'RegisterPage', action: '/user/register'){
+		      form(id:'RegisterPage', action: '/user/register',style: 'width:50%; margin: 0 auto; height: 50%;'){
 		      	button('Register', type:'submit', class:'btn btn-primary')
 		      }
 		  }

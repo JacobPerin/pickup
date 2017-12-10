@@ -17,16 +17,23 @@ class UserController {
 
 	@RequestMapping("register")
 	def register(){
-		return 'views/_registration'
+		new ModelAndView('views/_registration')
+	}
+
+	@RequestMapping(value="getEvent", method=RequestMethod.GET)
+	def getEvent( ){
+
 	}
 
 	@RequestMapping(value="addEvent", method=RequestMethod.POST)
-	def addEvent(@RequestBody User user) {
+	def addEvent(@RequestBody Event event) {
 
-		def locUser = User.get(user.userId)
+//This is the userId, had to do this for event to get to backend.
+		println("Before user")
+		def locUser = User.get(event.username)
 		if(locUser){
-			Point point = new Point(user.lat, user.lng)
-			def event = new Event(username: locUser.username, location: point, description: user.description, attendingUsers: 1, title: user.event, maxUsers: user.people)
+			println("im here")
+			def userEvent = new Event(username: locUser.username, lat: event.lat, lng: event.lng, description: event.description, attendingUsers: 1, title: event.event, maxUsers: event.maxUsers)
 			locUser.addToEvents(event)
 			locUser.save(flush:true)
 			return true;
@@ -38,6 +45,7 @@ class UserController {
 	def login(User user) {
 
 		def locUser = User.findByUsernameAndPassword(user.username, user.password)
+		println("here")
 		if(locUser) {
 			ModelAndView mod = new ModelAndView("views/_main");
 			mod.addObject("events", locUser.events)
@@ -45,7 +53,10 @@ class UserController {
 			return mod
 		}
 		else{
-			return
+			println("here")
+			ModelAndView mod = new ModelAndView("views/_login")
+			mod.addObject("error", "Invalid Username or password")
+			return mod
 		}
 		
 	}
@@ -70,22 +81,22 @@ class UserController {
 
 	@RequestMapping("save")
 	public ModelAndView save(User user) {
-		if(User.findByUsername(user.username)){
 
-		}
-		else if(user.id) {
-			def u = user.get(user.id)
-			u.with {
-				firstName = user.firstName
-				lastName = user.lastName
-				save(flush:true)
-			}
+		if(User.findByUsername(user.username)){
+			ModelAndView mod = new ModelAndView("views/_registration")
+			mod.addObject("error", "Username already exists")
+			return mod
 		}
 		//Create new user
 		else{
-			new User(lastName: user.lastName, email: user.email, username: user.username, 
+			User locUser = new User(lastName: user.lastName, email: user.email, username: user.username, 
 				firstName: user.firstName, password: user.password).save(flush:true)
+
+			ModelAndView mod = new ModelAndView("views/_main")
+			mod.addObject("events", "")
+			mod.addObject("userId", locUser.id)
+			return mod
 		}
-		new ModelAndView("views/_main")
+		
 	}
 }

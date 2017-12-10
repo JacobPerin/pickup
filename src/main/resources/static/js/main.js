@@ -164,11 +164,11 @@ function createForm(marker){
 
     $form.append($('<div />', { class : 'form-group'}))
     .append($('<label />', { for : 'event', text : 'Event Name'}))
-    .append($('<input />', {type : 'text', class : 'form-control', name : 'event', id : 'event', placeholder : 'Enter Event Name'}));
+    .append($('<input />', {type : 'text', class : 'form-control', name : 'title', id : 'event', placeholder : 'Enter Event Name'}));
 
     $form.append($('<div />', { class : 'form-group'}))
     .append($('<label />', { for : 'people', text : 'Number of People'}))
-    .append($('<input />', {type : 'text', class : 'form-control', name : 'people', id : 'people', placeholder : 'Enter Number of People'}));
+    .append($('<input />', {type : 'text', class : 'form-control', name : 'maxUsers', id : 'people', placeholder : 'Enter Number of People'}));
 
     $form.append($('<div />', { class : 'form-group'}))
     .append($('<label />', { for : 'description', text : 'Enter description'}))
@@ -208,7 +208,7 @@ function formOpterations(marker){
 
     values['lat'] = latLng.lat();
     values['lng'] = latLng.lng();
-    values['userId'] = userId; 
+    values['username'] = userId; 
     // Store data in the backend model
     var som = formToBackend(values);
 
@@ -228,11 +228,20 @@ function formOpterations(marker){
 // TODO :: STORE DATA TO THE BACKEND
 function formToBackend(values){
   $.ajax({
+    // headers: {
+      //   'Accept': 'application/json'
+      //   'Content-Type': 'application/json'
+      // },
     type:"POST",
     url:'/user/addEvent',
     data: values,
     success: function(data){
-      
+      var dat = data;
+
+
+    },
+    error: function(error){
+      var err = error;
     }
 
   });
@@ -241,7 +250,21 @@ function formToBackend(values){
 
 // TODO :: GET ID FOR CLASS SPEC. ON APPEND TO LIST
 function retrieveId(id, event){
-    $.get('/event', {id : id, event : event});
+    $.ajax({
+      // headers: {
+      //   'Accept': 'application/json'
+      //   'Content-Type': 'application/json'
+      // },
+      type: 'GET',
+      url: '/user/getEvent',
+      data: {id : id, event : event},
+      success: function(data){
+        return data;
+      },
+      error(err){
+        var error = err;
+      }
+    });
     return ++id;
 }
 
