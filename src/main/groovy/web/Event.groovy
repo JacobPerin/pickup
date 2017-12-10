@@ -21,5 +21,7 @@ class Event {
 		location geoIndex:'2dsphere'
 	}
 
+	static belongsTo = [user:User]
+
 	
 }

@@ -9,3 +9,7 @@
 .height-thirty-five {
 	height: 35vh;
 }
+
+.scroll-y {
+	overflow-y: scroll;
+}

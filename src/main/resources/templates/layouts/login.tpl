@@ -11,10 +11,7 @@ html {
   }
   body {
 
-    div(class : 'mx-auto', style : 'width : 400px;'){
-       mainBody()
-    }
-
+    mainBody()
    
   }
 }
