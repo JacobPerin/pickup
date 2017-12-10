@@ -221,7 +221,7 @@ function formOpterations(marker){
     let id = retrieveId(userId, values.event);
 
     // Retrieve id from backend, and generate a list item w/ event
-    appendToList(values.event, id, values.people);
+    appendToList(values.title, id, values.people);
 
 }
 
