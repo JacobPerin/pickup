@@ -26,9 +26,9 @@ class UserController {
 	}
 
 	@RequestMapping(value="addEvent", method=RequestMethod.POST)
-	def addEvent(@RequestBody Event event) {
+	def addEvent(Event event) {
 
-//This is the userId, had to do this for event to get to backend.
+		//This is the userId, had to do this for event to get to backend.
 		println("Before user")
 		def locUser = User.get(event.username)
 		if(locUser){
@@ -36,9 +36,9 @@ class UserController {
 			def userEvent = new Event(username: locUser.username, lat: event.lat, lng: event.lng, description: event.description, attendingUsers: 1, title: event.event, maxUsers: event.maxUsers)
 			locUser.addToEvents(event)
 			locUser.save(flush:true)
-			return true;
+			//return true;
 		}
-		return false;
+		//return false;
 	}
 
 	@RequestMapping("login")

@@ -105,6 +105,15 @@ function initMap() {
   	});
 }
 
+
+$(function () {
+  var token = $("meta[name='_csrf']").attr("content");
+  var header = $("meta[name='_csrf_header']").attr("content");
+  $(document).ajaxSend(function(e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+  });
+});
+
 // Global variables f/ determining state of form operations
 let pendingForm = false;
 let pendingMarker;
@@ -208,7 +217,8 @@ function formOpterations(marker){
 
     values['lat'] = latLng.lat();
     values['lng'] = latLng.lng();
-    values['username'] = userId; 
+    values['username'] = 'FIXME';
+
     // Store data in the backend model
     var som = formToBackend(values);
 
@@ -228,22 +238,16 @@ function formOpterations(marker){
 // TODO :: STORE DATA TO THE BACKEND
 function formToBackend(values){
   $.ajax({
-    // headers: {
-      //   'Accept': 'application/json'
-      //   'Content-Type': 'application/json'
-      // },
-    type:"POST",
-    url:'/user/addEvent',
-    data: values,
+    type:"post",
+    contentType: "application/json",
+    url: window.location.href + '/user/addEvent',
+    data: JSON.stringify(values),
     success: function(data){
       var dat = data;
-
-
     },
     error: function(error){
       var err = error;
     }
-
   });
 }
 
@@ -251,10 +255,6 @@ function formToBackend(values){
 // TODO :: GET ID FOR CLASS SPEC. ON APPEND TO LIST
 function retrieveId(id, event){
     $.ajax({
-      // headers: {
-      //   'Accept': 'application/json'
-      //   'Content-Type': 'application/json'
-      // },
       type: 'GET',
       url: '/user/getEvent',
       data: {id : id, event : event},
