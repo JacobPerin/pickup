@@ -15,6 +15,10 @@ html {
 
     comment 'jquery for .js'
     script('', type:'text/javascript' , src : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+
+    comment 'token data'
+    meta(name:'_csrf',content:'${_csrf.token}')
+    meta(name:'_csrf_header', content:'${_csrf.headerName}')
   }
 
   body {
