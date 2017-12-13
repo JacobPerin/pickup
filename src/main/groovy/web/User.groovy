@@ -2,6 +2,7 @@ package web
 
 import grails.persistence.*
 import org.bson.types.ObjectId
+import com.fasterxml.jackson.annotation.*
 
 @Entity
 class User {
@@ -15,7 +16,7 @@ class User {
 	String username;
 	String password;
 
-	
+
 	static hasMany = [events: Event, joinedEvents: Event]
 
 	static constraints = {

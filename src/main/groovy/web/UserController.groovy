@@ -24,6 +24,7 @@ class UserController {
 	@PostMapping(value="/addEvent")
 	public @ResponseBody String addEvent(@RequestBody Event event ) {
 
+		//Get User for the event to add.
 		def locUser = User.get(event.username)
 		if(locUser){
 			event.username = locUser.username;
@@ -37,6 +38,7 @@ class UserController {
 	@RequestMapping("login")
 	def login(User user) {
 
+		//Get User by UserName and Password to check login
 		def locUser = User.findByUsernameAndPassword(user.username, user.password)
 		if(locUser) {
 			ModelAndView mod = new ModelAndView("views/_main");
@@ -45,32 +47,22 @@ class UserController {
 			return mod
 		}
 		else{
+			//LOGIN FAILED
 			ModelAndView mod = new ModelAndView("views/_login")
-			mod.addObject("logError", "Invalid Username or password")
+			mod.addObject("error", "Invalid Username or password")
 			return mod
 		}
 		
 	}
 
-	@RequestMapping("{id}")
-	def view(@PathVariable("id") Long id) {
-		new ModelAndView("views/_main", "user", User.get(id))
-	}
 
-	// @RequestMapping(method = RequestMethod.GET)
-	// public ModelAndView login(User user){
-	// 	if(user.get(user.username) && user.get(user.password)){
-	// 		new ModelAndView("views/_main")
-	// 	}
-	// 	new ModelAndView("views/_main")
-	// }
-
+	//REGISTRATION
 	@RequestMapping("save")
 	public ModelAndView save(User user) {
-
+		//Check if username already exists
 		if(User.findByUsername(user.username)){
 			ModelAndView mod = new ModelAndView("views/_registration")
-			mod.addObject("logError", "Username already exists")
+			mod.addObject("error", "Username already exists")
 			return mod
 		}
 		//Create new user

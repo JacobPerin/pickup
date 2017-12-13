@@ -90,7 +90,6 @@ function initMap() {
 	});
 
 
-    // TODO :: Allow user to set to current location (starting) or enter a city
 	let address = 'Ames';
 
 	let geocoder = new google.maps.Geocoder();
@@ -223,7 +222,8 @@ function formOpterations(marker){
 
 }
 
-// TODO :: STORE DATA TO THE BACKEND
+
+//Function to set event in backend and return the events id
 function formToBackend(values){
   let id;
   $.ajax({
@@ -244,7 +244,6 @@ function formToBackend(values){
 }
 
 
-// TODO :: GET ID FOR CLASS SPEC. ON APPEND TO LIST
 function retrieveId(id, event){
     $.ajax({
       type: 'POST',
@@ -372,27 +371,28 @@ function joinForm(id){
 
 
 function getEventDataBulk(id){
-  //TODO GET EVENT W/ EVENT ID 
-  let values;
-  $.ajax({
-    type:"POST",
-    contentType: "application/json",
-    url:'/event/getEvent',
-    data: id,
-    async: false,
-    beforeSend: function(xhr) {
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.setRequestHeader("Content-Type", "application/json");
-    },
-    success: function(data){
-      values = data;
-    },
-    error: function(error){
-      var err = error;
-    }
-  });
+  //Return Event object in JSON -- DIDNT WORK
+  // let values;
+  // $.ajax({
+  //   type:"GET",
+  //   contentType: "application/json",
+  //   url:'/event/getEvent',
+  //   data: {eventId: id},
+  //   async: false,
+  //   success: function(data){
+  //     values = data;
+  //   },
+  //   error: function(error){
+  //     var err = error;
+  //   }
+  // });
   //FIXME :: DUMMY DATA 
-return values;
+  return {
+    attendingUsers : ['dillan', 'jake', 'austin'],
+    maxUsers : 4,
+    title : 'event name',
+    description : 'event description'
+  };
 }
 
 function updateEvent(values){
