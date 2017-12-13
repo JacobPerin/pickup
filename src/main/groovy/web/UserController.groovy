@@ -8,7 +8,8 @@ import org.springframework.web.servlet.ModelAndView
 import org.springframework.http.HttpStatus
 import grails.mongodb.geo.*
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 
 @Controller
 @Transactional
@@ -25,15 +26,16 @@ class UserController {
 
 	}
 
-	@ResponseBody @RequestMapping(value="addEvent", method=RequestMethod.POST)
-	def addEvent(Event event ) {
+	@PostMapping(value="/addEvent")
+	def addEvent(@RequestBody Event event ) {
 
 		//This is the userId, had to do this for event to get to backend.
 		println(event.username)
 		def locUser = User.get(event.username)
 		if(locUser){
 			println("im here")
-			def userEvent = new Event(username: locUser.username, lat: event.lat, lng: event.lng, description: event.description, attendingUsers: 1, title: event.event, maxUsers: event.maxUsers)
+			event.username = locUser.username;
+			event.attendingUsers = 1;
 			locUser.addToEvents(event)
 			locUser.save(flush:true)
 			return true;

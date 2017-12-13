@@ -1,9 +1,13 @@
+/* Global Variables */
 let markers = [];
+
 let userId = document.getElementById("userId").value;
+
+let map;
 
 
 function initMap() {
-	let map = new google.maps.Map(document.getElementById('map'), {
+	map = new google.maps.Map(document.getElementById('map'), {
 	   zoom: 15,
        styles: [
         {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -105,15 +109,6 @@ function initMap() {
   	});
 }
 
-
-$(function () {
-  var token = $("meta[name='_csrf']").attr("content");
-  var header = $("meta[name='_csrf_header']").attr("content");
-  $(document).ajaxSend(function(e, xhr, options) {
-    xhr.setRequestHeader(header, token);
-  });
-});
-
 // Global variables f/ determining state of form operations
 let pendingForm = false;
 let pendingMarker;
@@ -167,20 +162,20 @@ function dropDetailView(){
 
 function createForm(marker){
 
-    let $form = $('<form />', {id : 'createEvent', action: 'event/add', method: 'post'});
+    let $form = $('<form />', {id : 'createEvent'});
 
     $('#detail').append($('<div />', {class : 'mx-auto', style : 'width : 400px'}).append($form));
 
     $form.append($('<div />', { class : 'form-group'}))
-    .append($('<label />', { for : 'event', text : 'Event Name'}))
-    .append($('<input />', {type : 'text', class : 'form-control', name : 'title', id : 'event', placeholder : 'Enter Event Name'}));
+    .append($('<label />', { for : 'input_title', text : 'Event Name'}))
+    .append($('<input />', {type : 'text', class : 'form-control', name : 'title', placeholder : 'Enter Event Name'}));
 
     $form.append($('<div />', { class : 'form-group'}))
-    .append($('<label />', { for : 'people', text : 'Number of People'}))
-    .append($('<input />', {type : 'text', class : 'form-control', name : 'maxUsers', id : 'people', placeholder : 'Enter Number of People'}));
+    .append($('<label />', { for : 'input_maxUsers', text : 'Number of People'}))
+    .append($('<input />', {type : 'text', class : 'form-control', name : 'maxUsers', placeholder : 'Enter Number of People'}));
 
     $form.append($('<div />', { class : 'form-group'}))
-    .append($('<label />', { for : 'description', text : 'Enter description'}))
+    .append($('<label />', { for : 'input_description', text : 'Enter description'}))
     .append($('<textarea />', {class : 'form-control', name : 'description', row : '1'}));
 
     $form.append($('<br />'));
@@ -231,17 +226,18 @@ function formOpterations(marker){
     let id = retrieveId(userId, values.event);
 
     // Retrieve id from backend, and generate a list item w/ event
-    appendToList(values.title, id, values.people);
+    appendToList(values.title, id, values.people, marker);
 
 }
 
 // TODO :: STORE DATA TO THE BACKEND
 function formToBackend(values){
   $.ajax({
-    type:"post",
+    type:"POST",
     contentType: "application/json",
-    url: window.location.href + '/user/addEvent',
+    url:'/user/addEvent',
     data: JSON.stringify(values),
+    dataType: 'json',
     success: function(data){
       var dat = data;
     },
@@ -273,7 +269,7 @@ title -> string -> event name
 id -> number -> 
 persons -> number of people in event -> number of persons
 */
-function appendToList(event, id, persons){
+function appendToList(event, id, persons, marker){
     //$('#active-events')
     let $item = $('<li />', {id : id, text : event, class : 'list-group-item d-flex justify-content-between align-items-center'});
     
@@ -288,4 +284,12 @@ function appendToList(event, id, persons){
             $(this).removeClass('active');
         }
     );
+
+    // List item recently joined by the user
+    $item.click(function(){
+      // Get the position from the marker paired with this event
+      let latLngEvent = marker.getPosition();
+
+      map.setCenter(latLngEvent);
+    });
 }
