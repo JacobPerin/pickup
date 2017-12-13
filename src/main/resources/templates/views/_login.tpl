@@ -1,3 +1,7 @@
 layout 'layouts/login.tpl',
         pageTitle: 'Login',
-        mainBody: contents {}
+        mainBody: contents {
+
+			div(content: logError)
+
+        }

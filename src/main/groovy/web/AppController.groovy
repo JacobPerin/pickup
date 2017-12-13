@@ -27,7 +27,7 @@ class AppController {
     @RequestMapping("/")
     def home() {
     	ModelAndView mod = new ModelAndView("views/_login")
-    	mod.addObject("error", "");
+    	mod.addObject("logError", "");
     	return mod;
         
     }

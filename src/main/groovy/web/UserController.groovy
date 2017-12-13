@@ -44,7 +44,6 @@ class UserController {
 	def login(User user) {
 
 		def locUser = User.findByUsernameAndPassword(user.username, user.password)
-		println("here")
 		if(locUser) {
 			ModelAndView mod = new ModelAndView("views/_main");
 			mod.addObject("events", locUser.events)
@@ -52,9 +51,8 @@ class UserController {
 			return mod
 		}
 		else{
-			println("here")
 			ModelAndView mod = new ModelAndView("views/_login")
-			mod.addObject("error", "Invalid Username or password")
+			mod.addObject("logError", "Invalid Username or password")
 			return mod
 		}
 		
@@ -78,7 +76,7 @@ class UserController {
 
 		if(User.findByUsername(user.username)){
 			ModelAndView mod = new ModelAndView("views/_registration")
-			mod.addObject("error", "Username already exists")
+			mod.addObject("logError", "Username already exists")
 			return mod
 		}
 		//Create new user
