@@ -136,8 +136,8 @@ function pendingClear(){
 
     dropDetailView();
 
-    // remove the marker from the map
-    pendingMarker.setMap(null);
+    // remove the marker from the map -- if it exists 
+    if(pendingMarker != null) pendingMarker.setMap(null);
 
     pendingForm = false;
     pendingMarker = null;
@@ -262,7 +262,7 @@ function retrieveId(id, event){
 
 /*
 title -> string -> event name 
-id -> number -> 
+id -> number -> id of given event 
 persons -> number of people in event -> number of persons
 */
 function appendToList(event, id, persons, marker){
@@ -287,6 +287,13 @@ function appendToList(event, id, persons, marker){
       let latLngEvent = marker.getPosition();
 
       map.setCenter(latLngEvent);
+
+      // If event window is active -- clear it 
+      if(pendingForm) pendingClear();
+      pendingForm = true;
+
+      // Open form w/ id of created event 
+      openForm(id);
     });
 }
 
@@ -294,6 +301,50 @@ function appendToList(event, id, persons, marker){
 /* 
 Created Event clicked in banner or on marker in the map
 */
-function openForm(){
+function openForm(id){
 
+  let eventValues = getEventDataBulk(id);
+
+  let $event = $('<div />', {class : 'row'});
+
+  // LHS of div will have a growing list of all active users in the current event 
+  let $lhs = $('<div />', {class : 'col-3 fill'});
+  
+  let $attendees = $('<ul />', {class : 'list-group'});
+  
+  $.each(eventValues.attendingUsers, function(i, attendee){
+
+    $attendees.append($('<li />', {class : 'list-group-item text-center', text : attendee}));
+  
+  });
+
+  $lhs.append($attendees);
+  $event.append($lhs);
+
+  // RHS of div will have option to join the given event 
+  let $rhs = $('<div />', {class : 'col-9 mx-auto fill'});
+
+  $rhs.append($('<p />', {class : 'text-center font-weight-bold', text : eventValues.maxUsers}));
+  $rhs.append($('<p />', {class : 'text-center font-weight-bold', text : eventValues.title}));
+  $rhs.append($('<p />', {class : 'text-center', text : eventValues.description}));
+
+  //TODO :: FORM TO JOIN AN EVENT
+
+  $event.append($rhs);
+
+  // Append entire view to the detail div
+  $('#detail').append($event);
+}
+
+
+function getEventDataBulk(id){
+  //TODO GET EVENT W/ EVENT ID 
+
+  //FIXME :: DUMMY DATA 
+  return {
+    attendingUsers : ['dillan', 'jake', 'austin'],
+    maxUsers : '4',
+    title : 'event name',
+    description : 'event description'
+  };
 }
