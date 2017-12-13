@@ -1,7 +1,6 @@
 /* Global Variables */
 let markers = [];
 
-let userId = document.getElementById("userId").value;
 
 let map;
 
@@ -212,7 +211,7 @@ function formOpterations(marker){
 
     values['lat'] = latLng.lat();
     values['lng'] = latLng.lng();
-    values['username'] = userId;
+    values['username'] = $("meta[name='_userId']").attr("content");
 
     // Store data in the backend model
     var som = formToBackend(values);
@@ -292,4 +291,12 @@ function appendToList(event, id, persons, marker){
 
       map.setCenter(latLngEvent);
     });
+}
+
+
+/* 
+Created Event clicked in banner or on marker in the map
+*/
+function openForm(){
+
 }

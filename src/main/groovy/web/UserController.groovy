@@ -29,7 +29,9 @@ class UserController {
 	// Cleaner notation :: Collin refer to GetMapping + annotion insert
 	@PostMapping(value="/addEvent")
 	def addEvent(@RequestBody Event event) {
-		
+
+		println('---')
+		println(event.username)
 		println('---')
 		println(event.title)
 		println('---')
