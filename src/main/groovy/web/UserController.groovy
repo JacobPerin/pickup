@@ -21,19 +21,13 @@ class UserController {
 		new ModelAndView('views/_registration')
 	}
 
-	@RequestMapping(value="getEvent", method=RequestMethod.GET)
-	def getEvent(){
-
-	}
-
 	@PostMapping(value="/addEvent")
-
 	public @ResponseBody String addEvent(@RequestBody Event event ) {
 
 		def locUser = User.get(event.username)
 		if(locUser){
 			event.username = locUser.username;
-			event.attendingUsers = 1;
+			event.addToAttending(locUser.username)
 			locUser.addToEvents(event)
 			locUser.save(flush:true)
 		}

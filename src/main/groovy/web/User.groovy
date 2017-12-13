@@ -7,13 +7,16 @@ import org.bson.types.ObjectId
 class User {
 	
 	List events;
+	List joinedEvents
 	ObjectId id;
 	String firstName;
 	String lastName;
 	String email;
 	String username;
 	String password;
-	static hasMany = [events: Event]
+
+	
+	static hasMany = [events: Event, joinedEvents: Event]
 
 	static constraints = {
 		firstName blank:false
@@ -26,6 +29,7 @@ class User {
 
 	static mapping = {
 		id index:true, indexAttributes: [unique:true, dropDups: true]
+		events cascade: 'all-delete-orphan'
 	}
 
 

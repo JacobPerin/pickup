@@ -11,9 +11,11 @@ class Event {
 	String lat
 	String lng
 	String description
-	String attendingUsers
+	List attending
 	String maxUsers
 	String title
+
+	static hasMany = [attending: String]
 
 	static constraints = {
 		username blank:false
