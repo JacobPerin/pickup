@@ -328,16 +328,49 @@ function openForm(id){
   // RHS of div will have option to join the given event 
   let $rhs = $('<div />', {class : 'col-9 mx-auto fill'});
 
-  $rhs.append($('<p />', {class : 'text-center font-weight-bold', text : eventValues.maxUsers}));
-  $rhs.append($('<p />', {class : 'text-center font-weight-bold', text : eventValues.title}));
+  $rhs.append($('<h2 />', {class : 'text-center', text : eventValues.maxUsers}));
+  $rhs.append($('<h3 />', {class : 'text-center', text : eventValues.title}));
   $rhs.append($('<p />', {class : 'text-center', text : eventValues.description}));
 
-  //TODO :: FORM TO JOIN AN EVENT
+  if(eventValues.maxUsers > eventValues.attendingUsers.length){
+    let $form = joinForm(id);
+    $rhs.append($form);
+  }
+  else {
+    // Event full, cannot join
+  }
 
   $event.append($rhs);
 
   // Append entire view to the detail div
   $('#detail').append($event);
+}
+
+
+function joinForm(id){
+  let $form = $('<form />', {id : 'joinEvent'});
+  $form.append($('<input />', {text : 'Join', type : 'submit', class : 'btn btn-primary btn-block'}));
+
+  $form.submit( function(event){
+
+    /*
+    Prevent form submissin :: 
+    warning 
+        -- If completed it messes up page on refresh
+    */
+    event.preventDefault();
+
+    values = {};
+    values['userId'] = $("meta[name='_userId']").attr("content");
+    values['eventId'] = id;
+
+    updateEvent(values);
+
+    // Form has accomplished purpose --> remove
+    pendingSetClear();
+  });
+
+  return $form;
 }
 
 
@@ -347,8 +380,12 @@ function getEventDataBulk(id){
   //FIXME :: DUMMY DATA 
   return {
     attendingUsers : ['dillan', 'jake', 'austin'],
-    maxUsers : '4',
+    maxUsers : 4,
     title : 'event name',
     description : 'event description'
   };
+}
+
+function updateEvent(values){
+  //TODO :: POST TO FORM TO UPDATE USERS IN EVENT 
 }
