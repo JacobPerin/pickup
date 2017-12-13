@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus
 import grails.mongodb.geo.*
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 
 @Controller
 @Transactional
@@ -22,35 +22,22 @@ class UserController {
 	}
 
 	@RequestMapping(value="getEvent", method=RequestMethod.GET)
-	def getEvent( ){
+	def getEvent(){
 
 	}
 
-	// Cleaner notation :: Collin refer to GetMapping + annotion insert
 	@PostMapping(value="/addEvent")
-	def addEvent(@RequestBody Event event) {
 
-		println('---')
-		println(event.username)
-		println('---')
-		println(event.title)
-		println('---')
-		println(event.maxUsers)
-		println('---')
-		println(event.description)
-		println('---')
+	public @ResponseBody String addEvent(@RequestBody Event event ) {
 
-		//This is the userId, had to do this for event to get to backend.
-		//println("Before user")
-		// def locUser = User.get(event.username)
-		// if(locUser){
-		// 	println("im here")
-		// 	def userEvent = new Event(username: locUser.username, lat: event.lat, lng: event.lng, description: event.description, attendingUsers: 1, title: event.event, maxUsers: event.maxUsers)
-		// 	locUser.addToEvents(event)
-		// 	locUser.save(flush:true)
-		// 	return true;
-		// }
-		// return false;
+		def locUser = User.get(event.username)
+		if(locUser){
+			event.username = locUser.username;
+			event.attendingUsers = 1;
+			locUser.addToEvents(event)
+			locUser.save(flush:true)
+		}
+		return event.id;
 	}
 
 	@RequestMapping("login")
@@ -71,11 +58,6 @@ class UserController {
 			return mod
 		}
 		
-	}
-
-	@RequestMapping(value='/error', method = RequestMethod.GET)
-	public ModelAndView error() {
-		return ModelAndView()
 	}
 
 	@RequestMapping("{id}")

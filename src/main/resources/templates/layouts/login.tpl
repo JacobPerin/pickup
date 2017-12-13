@@ -32,6 +32,7 @@ html {
       form(id:'RegisterPage', action: '/user/register',style: 'width:50%; margin: 0 auto; height: 50%;'){
       	button('Register', type:'submit', class:'btn btn-primary')
       }
+      div(error)
   	}
 
   	mainBody()

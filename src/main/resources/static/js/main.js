@@ -211,49 +211,45 @@ function formOpterations(marker){
 
     values['lat'] = latLng.lat();
     values['lng'] = latLng.lng();
-    values['username'] = $("meta[name='_userId']").attr("content");
+    let userId = $("meta[name='_userId']").attr("content");
+    values['username'] = userId;
 
     // Store data in the backend model
-    var som = formToBackend(values);
-
-    /*
-    TODO :: 
-        --Retrieve username from hidden span / meta tag
-        --Make call to backend to get id for event
-        --Pass to class to initialize event w/ event id
-    */
-    //let id = retrieveId(userId, values.event);
-    let id = 0;
+    let id = formToBackend(values);
 
     // Retrieve id from backend, and generate a list item w/ event
-    appendToList(values.title, id, values.people, marker);
+    appendToList(values.title, id, values.maxUsers, marker);
 
 }
 
 // TODO :: STORE DATA TO THE BACKEND
 function formToBackend(values){
+  let id;
   $.ajax({
     type:"POST",
     contentType: "application/json",
     url:'/user/addEvent',
     data: JSON.stringify(values),
-    dataType: 'json',
+    async: false,
     success: function(data){
-      var dat = data;
+      id = data;
     },
     error: function(error){
       var err = error;
     }
   });
+
+  return id;
 }
 
 
 // TODO :: GET ID FOR CLASS SPEC. ON APPEND TO LIST
 function retrieveId(id, event){
     $.ajax({
-      type: 'GET',
+      type: 'POST',
+      contentType: "application/json",
       url: '/user/getEvent',
-      data: {id : id, event : event},
+      data: {id : id, title : event},
       success: function(data){
         return data;
       },

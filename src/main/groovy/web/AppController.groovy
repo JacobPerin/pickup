@@ -26,7 +26,10 @@ class AppController {
 
     @RequestMapping("/")
     def home() {
-        new ModelAndView("views/_login")
+    	ModelAndView mod = new ModelAndView("views/_login")
+    	mod.addObject("error", "");
+    	return mod;
+        
     }
 
 }
