@@ -27,7 +27,7 @@ html {
         comment 'left side of page'  
         div(class: 'col-3 height-full scroll-y', style:'background-color: #CCD6DD;') {
 
-          input(type:'hidden', id:"userId", name:"username", value: userId)
+          input(type:'hidden', id:"eventId", name:"eventId", value: eventId)
           div(class: 'container-fluid'){
 
             ul(id : 'active-events', class : 'list-group') {
