@@ -26,10 +26,10 @@ class UserController {
 	}
 
 	@ResponseBody @RequestMapping(value="addEvent", method=RequestMethod.POST)
-	def addEvent(Event event) {
+	def addEvent(Event event ) {
 
 		//This is the userId, had to do this for event to get to backend.
-		println("Before user")
+		println(event.username)
 		def locUser = User.get(event.username)
 		if(locUser){
 			println("im here")

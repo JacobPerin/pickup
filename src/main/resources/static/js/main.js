@@ -217,7 +217,7 @@ function formOpterations(marker){
 
     values['lat'] = latLng.lat();
     values['lng'] = latLng.lng();
-    values['username'] = 'FIXME';
+    values['username'] = userId;
 
     // Store data in the backend model
     var som = formToBackend(values);
