@@ -13,8 +13,18 @@ html {
 
    	div(class : 'mx-auto'){
 
-    form( id:'loginForm', method: 'post', action : '/user/login', style: 'width:50%; margin: 0 auto; height: 50%;') {
-      	// input(name: 'id'type 'hidden')
+      h2('Not A User', class : 'text-center')
+
+      form(id:'RegisterPage', action: '/user/register',style: 'width:50%; margin: 0 auto; height: 50%;'){
+        button('Register', type:'submit', class:'btn btn-primary')
+      }
+
+      hr('')
+
+      h2('Current User', class : 'text-center')
+
+      form( id:'loginForm', method: 'post', action : '/user/login', style: 'width:50%; margin: 0 auto; height: 50%;') {
+
         div(class : 'form-group') {
           label('Username', for : 'username')
           input(type : 'text', class : 'form-control', name : 'username', id : 'username', placeholder : 'Username', required:true)
@@ -25,17 +35,10 @@ html {
           input(type : 'password', class : 'form-control',name : 'password', id : 'password', placeholder : 'Password', required:true)
         }
 
-        button('Submit', type : 'submit', class : 'btn btn-primary')
-        
-      }
+        mainBody()
 
-      form(id:'RegisterPage', action: '/user/register',style: 'width:50%; margin: 0 auto; height: 50%;'){
-      	button('Register', type:'submit', class:'btn btn-primary')
+        button('Submit', type : 'submit', class : 'btn btn-primary')   
       }
-      div(error)
   	}
-
-  	mainBody()
-
   }
 }
